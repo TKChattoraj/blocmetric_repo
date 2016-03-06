@@ -33,6 +33,13 @@ RSpec.describe AppsController, type: :controller do
       end
     end
 
+    describe "GET #new" do
+      it "redirects to the login view" do
+        get :new, {user_id: my_user.id}
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
 
 
   end
@@ -96,6 +103,28 @@ RSpec.describe AppsController, type: :controller do
       it "sets @app to the specified app" do
         get :edit, {user_id: my_user.id, id: my_app.id}
         expect(assigns(:app)).to eq my_app
+      end
+    end
+
+    describe "GET #new" do
+      it "returns http success" do
+        get :new, {user_id: my_user.id}
+        expect(response).to have_http_status(:success)
+      end
+
+      it "renders the #new template" do
+        get :new, {user_id: my_user.id}
+        expect(response).to render_template :new
+      end
+
+      it "sets instantiates @app" do
+        get :new, {user_id: my_user.id}
+        expect(assigns(:app)).not_to be_nil
+      end
+
+      it "sets @user to my_user" do
+        get :new, {user_id: my_user.id}
+        expect(assigns(:user)).to eq my_user
       end
     end
 

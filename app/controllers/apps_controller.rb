@@ -16,7 +16,8 @@ class AppsController < ApplicationController
 
 
   def new
-
+    @user = User.find(params[:user_id])
+    @app = App.new
   end
 
 
