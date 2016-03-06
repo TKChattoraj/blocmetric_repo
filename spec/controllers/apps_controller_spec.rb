@@ -20,8 +20,15 @@ RSpec.describe AppsController, type: :controller do
 
 
     describe "GET #index" do
-      it "has http success" do
+      it "redirects to the login view" do
         get :index, {user_id: my_user.id}
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
+    describe "GET #edit" do
+      it "redirects to the login view" do
+        get :edit, {user_id: my_user.id, id: my_app.id}
         expect(response).to redirect_to(new_user_session_path)
       end
     end
@@ -73,7 +80,23 @@ RSpec.describe AppsController, type: :controller do
         expect(assigns(:user)).to eq my_user
         expect(assigns(:apps)).to eq [my_app]
       end
+    end
 
+    describe "GET #edit" do
+      it "returns http success" do
+        get :edit, {user_id: my_user.id, id: my_app.id}
+        expect(response).to have_http_status(:success)
+      end
+
+      it "renders the #edit view" do
+        get :edit, {user_id: my_user.id, id: my_app.id}
+        expect(response).to render_template :edit
+      end
+
+      it "sets @app to the specified app" do
+        get :edit, {user_id: my_user.id, id: my_app.id}
+        expect(assigns(:app)).to eq my_app
+      end
     end
 
 

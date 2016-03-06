@@ -28,7 +28,7 @@ class AppsController < ApplicationController
 
 
   def edit
-
+    @app = App.find(params[:id])
   end
 
 
