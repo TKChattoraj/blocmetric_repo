@@ -1,9 +1,16 @@
 class AppsController < ApplicationController
+  before_action :authenticate_user!
+  #after_action :verify_authorized
+
 
   def index
 
   end
 
+  def show
+    @user = User.find(params[:user_id])
+    @app = App.find(params[:id])
+  end
 
 
   def new
