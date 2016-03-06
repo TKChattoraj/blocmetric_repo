@@ -6,6 +6,7 @@ RSpec.describe AppsController, type: :controller do
   let(:other_user) {crreate(:user)}
 
   let(:my_app) {create(:app, user: my_user)}
+  let(:other_app) {create(:app, user: other_user)}
 
 
 
@@ -13,6 +14,14 @@ RSpec.describe AppsController, type: :controller do
     describe "GET #show" do
       it "redirects to the login view" do
         get :show, {user_id: my_user.id, id: my_app.id}
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
+
+    describe "GET #index" do
+      it "has http success" do
+        get :index, {user_id: my_user.id}
         expect(response).to redirect_to(new_user_session_path)
       end
     end
@@ -47,6 +56,26 @@ RSpec.describe AppsController, type: :controller do
         expect(assigns :app).to eq my_app
       end
     end
+
+    describe "GET #index" do
+      it "returns http success" do
+        get :index, {user_id: my_user.id}
+        expect(response).to have_http_status(:success)
+      end
+
+      it "renders the index view" do
+        get :index, {user_id: my_user.id}
+        expect(response).to render_template :index
+      end
+
+      it "sets @user to my_user and @apps to my_user's apps" do
+        get :index, {user_id: my_user.id}
+        expect(assigns(:user)).to eq my_user
+        expect(assigns(:apps)).to eq [my_app]
+      end
+
+    end
+
 
   end
 

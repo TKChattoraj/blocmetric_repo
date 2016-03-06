@@ -4,6 +4,8 @@ class AppsController < ApplicationController
 
 
   def index
+    @user = User.find(params[:user_id])
+    @apps = @user.apps
 
   end
 
