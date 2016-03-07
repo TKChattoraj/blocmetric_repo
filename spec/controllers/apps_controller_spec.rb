@@ -40,6 +40,14 @@ RSpec.describe AppsController, type: :controller do
       end
     end
 
+    describe "POST #create" do
+      it "redirects to the login view" do
+        post :create, {user_id: my_user.id, app: {url: my_app.url}}
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
+
 
 
   end
@@ -127,6 +135,32 @@ RSpec.describe AppsController, type: :controller do
         expect(assigns(:user)).to eq my_user
       end
     end
+
+    describe "POST #create" do
+      it "returns http found" do
+        post :create, {user_id: my_user.id, app: {url: my_app.url}}
+        expect(response).to have_http_status(:found)
+      end
+
+      it "renders the #show view" do
+        post :create, {user_id: my_user.id, app: {url: "http://found.com"}}
+        app_created = App.last
+        expect(response).to redirect_to user_app_path(my_user.id, app_created)
+      end
+
+      it "should increase the number of apps by 1" do
+        expect{post :create, {user_id: my_user.id, app: {url: "http://savedurl.com"}}}.to change(App, :count).by(1)
+      end
+
+      it "creates a new app with the given attributes" do
+        post :create, {user_id: my_user.id, app: {url: "http://newurl.com"}}
+        new_app = App.last
+        expect(new_app.url).to eq "http://newurl.com"
+        expect(new_app.user).to eq my_user
+      end
+
+    end
+
 
 
   end
