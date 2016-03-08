@@ -26,13 +26,6 @@ RSpec.describe AppsController, type: :controller do
       end
     end
 
-    describe "GET #edit" do
-      it "redirects to the login view" do
-        get :edit, {user_id: my_user.id, id: my_app.id}
-        expect(response).to redirect_to(new_user_session_path)
-      end
-    end
-
     describe "GET #new" do
       it "redirects to the login view" do
         get :new, {user_id: my_user.id}
@@ -47,9 +40,19 @@ RSpec.describe AppsController, type: :controller do
       end
     end
 
+    describe "GET #edit" do
+      it "redirects to the login view" do
+        get :edit, {user_id: my_user.id, id: my_app.id}
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
 
-
-
+    describe "PUT #update" do
+      it "redirects to the login view" do
+        put :update, {user_id: my_user.id, id: my_app.id, app: {url: "http://updatedurl.com"}}
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
   end
 
   # Note context of Signed in User doing CRUD on another's app is
@@ -61,22 +64,6 @@ RSpec.describe AppsController, type: :controller do
       my_user.confirm
       sign_in :user, my_user
       @request.env["devise.mapping"] = Devise.mappings[:user]
-    end
-
-    describe "GET #show" do
-      it "returns http success" do
-        get :show, {user_id: my_user.id, id: my_app.id}
-        expect(response).to have_http_status(:success)
-      end
-      it "renders the #show view" do
-        get :show, {user_id: my_user.id, id: my_app}
-        expect(response).to render_template :show
-      end
-      it "sets the instance @app to my_app and the @user to my_user" do
-        get :show, {user_id: my_user.id, id: my_app}
-        expect(assigns :user).to eq my_user
-        expect(assigns :app).to eq my_app
-      end
     end
 
     describe "GET #index" do
@@ -97,20 +84,19 @@ RSpec.describe AppsController, type: :controller do
       end
     end
 
-    describe "GET #edit" do
+    describe "GET #show" do
       it "returns http success" do
-        get :edit, {user_id: my_user.id, id: my_app.id}
+        get :show, {user_id: my_user.id, id: my_app.id}
         expect(response).to have_http_status(:success)
       end
-
-      it "renders the #edit view" do
-        get :edit, {user_id: my_user.id, id: my_app.id}
-        expect(response).to render_template :edit
+      it "renders the #show view" do
+        get :show, {user_id: my_user.id, id: my_app}
+        expect(response).to render_template :show
       end
-
-      it "sets @app to the specified app" do
-        get :edit, {user_id: my_user.id, id: my_app.id}
-        expect(assigns(:app)).to eq my_app
+      it "sets the instance @app to my_app and the @user to my_user" do
+        get :show, {user_id: my_user.id, id: my_app}
+        expect(assigns :user).to eq my_user
+        expect(assigns :app).to eq my_app
       end
     end
 
@@ -161,7 +147,40 @@ RSpec.describe AppsController, type: :controller do
 
     end
 
+    describe "GET #edit" do
+      it "returns http success" do
+        get :edit, {user_id: my_user.id, id: my_app.id}
+        expect(response).to have_http_status(:success)
+      end
 
+      it "renders the #edit view" do
+        get :edit, {user_id: my_user.id, id: my_app.id}
+        expect(response).to render_template :edit
+      end
+
+      it "sets @app to the specified app" do
+        get :edit, {user_id: my_user.id, id: my_app.id}
+        expect(assigns(:app)).to eq my_app
+      end
+    end
+
+    describe "PUT #update" do
+      it "returns http found" do
+        put :update, {user_id: my_user.id, id: my_app.id, app: {url: "http://updatedurl.com"}}
+        expect(response).to have_http_status(:found)
+      end
+
+      it "redirects to the show view" do
+        put :update, {user_id: my_user.id, id: my_app.id, app: {url: "http://updatedurl.com"}}
+        expect(response).to redirect_to user_app_path(my_user, my_app)
+      end
+
+      it "updates the app with the given attribute" do
+        put :update, {user_id: my_user.id, id: my_app.id, app: {url: "http://updatedurl.com"}}
+        revised_app = App.find(my_app.id)
+        expect(revised_app.url).to eq "http://updatedurl.com"
+      end
+    end
 
   end
 
