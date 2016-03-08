@@ -53,6 +53,14 @@ RSpec.describe AppsController, type: :controller do
         expect(response).to redirect_to(new_user_session_path)
       end
     end
+
+    describe "DELETE #destroy" do
+      it "redirects to the login view" do
+        delete :destroy, {user_id: my_user.id, id: my_app}
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
   end
 
   # Note context of Signed in User doing CRUD on another's app is
@@ -181,6 +189,25 @@ RSpec.describe AppsController, type: :controller do
         expect(revised_app.url).to eq "http://updatedurl.com"
       end
     end
+
+    describe "DELETE #destroy" do
+      it "returns http found" do
+        delete :destroy, {user_id: my_user.id, id: my_app.id}
+        expect(response).to have_http_status(:found)
+      end
+
+      it "renders the apps#index" do
+        delete :destroy, {user_id: my_user.id, id: my_app.id}
+        expect(response).to redirect_to user_apps_path(my_user.id)
+      end
+
+      it "deletes the specified bookmakr" do
+        delete :destroy, {user_id: my_user.id, id: my_app.id}
+        app_count = App.where(id: my_app.id).count
+        expect(app_count). to eq 0
+      end
+    end
+
 
   end
 

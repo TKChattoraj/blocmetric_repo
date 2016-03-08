@@ -50,12 +50,22 @@ class AppsController < ApplicationController
       redirect_to user_app_path(@user, @app)
     else
       flash[:error] = "Error!  App NOT Updated!"
-      render edit_user_app_path(@user, @app)
+      render_template edit_user_app_path(@user, @app)
     end
   end
 
 
   def destroy
+    @user = User.find(params[:user_id])
+    @app = @user.apps.find(params[:id])
+
+    if @app.destroy
+      flash[:notice] = "App Deleted!"
+      redirect_to user_apps_path(@user)
+    else
+      flash[:error] = "Error!  App NOT Deleted!"
+      render_template user_app_path(@user, @app)
+    end
 
   end
 
