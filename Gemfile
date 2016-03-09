@@ -6,6 +6,7 @@ gem 'rails', '4.2.5'
 
 # Devise
 gem 'devise'
+gem 'pundit'
 
 group :production do
   gem 'pg'
@@ -17,6 +18,9 @@ group :development do
   gem 'web-console', '~>2.0'
 end
 
+group :test do
+  gem 'pundit-matchers', '~>1.0.1'
+end
 
 # Use sqlite3 as the database for Active Record
 #gem 'sqlite3'

@@ -4,9 +4,10 @@ class AppsController < ApplicationController
 
 
   def index
-    @user = User.find(params[:user_id])
-    @apps = @user.apps
 
+    @user = User.find(params[:user_id])
+    #@apps = @user.apps
+    @apps = policy_scope(App)
   end
 
   def show
