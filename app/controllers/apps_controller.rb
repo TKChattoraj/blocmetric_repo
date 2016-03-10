@@ -2,11 +2,15 @@ class AppsController < ApplicationController
   before_action :authenticate_user!
   #after_action :verify_authorized
 
+  after_action :verify_authorized, unless: :devise_controller?
+  after_action :verify_policy_scoped, only: :index, unless: :devise_controller?
+
 
   def index
-    @user = User.find(params[:user_id])
+
     authorize App
-    @app = App.new
+    #@user = User.find(params[:user_id])
+    @user = current_user
     @apps = policy_scope(App)
   end
 

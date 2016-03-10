@@ -1,0 +1,12 @@
+<% unless user_applications.empty? %>
+  <% user_applications.each do |app| %>
+    <p><%= app.url %></p>
+  <% end %>
+<% else %>
+    <p>No applications yet</p>
+<% end %>
+<div class="row">
+  <div class="col-md-4">
+        <%= link_to "New App", new_user_app_path(current_user), class: 'btn btn-success' %>
+  </div>
+</div>
