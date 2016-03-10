@@ -4,21 +4,23 @@ class AppsController < ApplicationController
 
 
   def index
-
     @user = User.find(params[:user_id])
-    #@apps = @user.apps
+    authorize App
+    @app = App.new
     @apps = policy_scope(App)
   end
 
   def show
     @user = User.find(params[:user_id])
     @app = App.find(params[:id])
+    authorize @app
   end
 
 
   def new
     @user = User.find(params[:user_id])
     @app = App.new
+    authorize @app
   end
 
 
@@ -27,6 +29,7 @@ class AppsController < ApplicationController
     @user = User.find(params[:user_id])
     @app = @user.apps.new(app_params)
     @app.user = @user
+    authorize @app
 
     if @app.save
       flash[:notice] = "New App Created!"
@@ -39,12 +42,14 @@ class AppsController < ApplicationController
 
   def edit
     @app = App.find(params[:id])
+    authorize @app
   end
 
 
   def update
     @user = User.find(params[:user_id])
     @app = @user.apps.find(params[:id])
+    authorize @app
 
     if @app.update_attributes(app_params)
       flash[:notice] = "App Updated!"
@@ -59,6 +64,7 @@ class AppsController < ApplicationController
   def destroy
     @user = User.find(params[:user_id])
     @app = @user.apps.find(params[:id])
+    authorize @app
 
     if @app.destroy
       flash[:notice] = "App Deleted!"

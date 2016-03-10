@@ -1,16 +1,11 @@
 class AppPolicy<ApplicationPolicy
 
   def index?
-    if user.present?
-      scope.where(user_id: user.id)
-    else
-      nil
-    end
+    user.present?
   end
 
   def show?
-    scope.where(:id => record.id).exists?
-    user.present? && (record.user == user)
+    user.present? && scope.where(id: record.id).exists? && (record.user == user)
   end
 
   def create?
@@ -26,11 +21,11 @@ class AppPolicy<ApplicationPolicy
   end
 
   def edit?
-    user.present? && (record.user == user)
+    user.present? && scope.where(id: record.id).exists? && (record.user == user)
   end
 
   def destroy?
-    user.present? && (record.user == user)
+    user.present? && scope.where(id: record.id).exists? && (record.user == user)
   end
 
   class Scope<Scope
