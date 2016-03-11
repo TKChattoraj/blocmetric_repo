@@ -85,7 +85,7 @@ class AppsController < ApplicationController
 
   def app_params
     # Strong params for the bookmark
-    params.require(:app).permit(:url, :user_id)
+    params.require(:app).permit(:url, :user_id, :name)
   end
 
 

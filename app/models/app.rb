@@ -8,4 +8,5 @@ class App < ActiveRecord::Base
             presence: true,
             uniqueness: {case_sensative: false},
             format: {with: URL_REGEX}
+  validates :name, presence: true
 end

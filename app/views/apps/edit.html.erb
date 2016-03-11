@@ -1,4 +1,4 @@
-<h1>Edit App</h1>
+<h3>Edit App</h1>
 
 
 <div class="row">
@@ -15,8 +15,10 @@
     <% end %>
 
     <%= form_group_tag(@app.errors[:url]) do %>
-
-      <%= a.text_field :url, class: 'form-control' %>
+      <div class="col-xs-8">
+        <%= a.text_field :name, class: 'form-control' %>
+        <%= a.text_field :url, class: 'form-control'%>
+      </div.
     <% end %>
 
     <div class="form-group">

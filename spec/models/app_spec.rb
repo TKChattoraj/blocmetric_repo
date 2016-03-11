@@ -18,6 +18,7 @@ RSpec.describe App, type: :model do
   it {should_not allow_value("ww.my_application.io").for(:url)}
 
   it {should belong_to(:user)}
+  it {should validate_presence_of(:name)}
 
   describe "attributes" do
     it "should respond to user_id" do
@@ -26,6 +27,10 @@ RSpec.describe App, type: :model do
     it "should respond to url" do
       expect(my_application).to respond_to(:url)
     end
+    it "should respond to name" do
+      expect(my_application).to respond_to(:name)
+    end
+
   end
 
 end
