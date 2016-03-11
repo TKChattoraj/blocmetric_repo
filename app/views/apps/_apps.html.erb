@@ -1,0 +1,24 @@
+<% unless user_applications.empty? %>
+  <% user_applications.each do |app| %>
+    <div class="row">
+      <%= app.name %>
+    </div>
+    <div class='row'>
+      <%= link_to "Show", user_app_path(app.user, app), class: 'btn-xs btn-info' %>
+      <%= link_to "Edit", edit_user_app_path(app.user, app), class: 'btn-xs btn-info' %>
+      <%= link_to "Delete", user_app_path(app.user, app), :method => 'delete', class: 'btn-xs btn-danger', data: {confirm: 'Are you sure you want to delete this application'} %>
+    </div>
+    <div class='row'>
+      <p></p>
+    </div>
+  <% end %>
+<% else %>
+    <div class="row".
+      No applications yet
+    </div>
+
+<% end %>
+
+<div class="row">
+  <%= link_to "New App", new_user_app_path(current_user), class: 'btn btn-success' %>
+</div>
