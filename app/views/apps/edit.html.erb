@@ -1,1 +1,29 @@
-<h1> Edit view </h1>
+<h1>Edit App</h1>
+
+
+<div class="row">
+  <%= form_for [@app.user, @app] do |a| %>
+    <% if @app.errors.any? %>
+      <div class="alert alert-danger">
+        <h4><%= pluralize(@app.errors.count, "error") %>.</h4>
+        <ul>
+          <% @app.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= form_group_tag(@app.errors[:url]) do %>
+
+      <%= a.text_field :url, class: 'form-control' %>
+    <% end %>
+
+    <div class="form-group">
+      <%= a.submit "Save", class:'btn btn-success' %>
+    </div>
+
+  <% end %>
+
+
+</div>
