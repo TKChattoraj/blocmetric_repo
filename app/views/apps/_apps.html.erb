@@ -1,9 +1,13 @@
 <% unless user_applications.empty? %>
   <% user_applications.each do |app| %>
     <p><%= app.url %></p>
+    <%= link_to "Show", user_app_path(app.user, app), class: 'btn-xs btn-info' %>
+    <%= link_to "Edit", edit_user_app_path(app.user, app), class: 'btn-xs btn-info' %>
+    <%= link_to "Delete", user_app_path(app.user, app), :method => 'delete', class: 'btn-xs btn-danger', data: {confirm: 'Are you sure you want to delete this bookmark?'} %>
   <% end %>
 <% else %>
     <p>No applications yet</p>
+
 <% end %>
 <div class="row">
   <div class="col-md-4">
