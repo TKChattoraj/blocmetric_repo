@@ -15,9 +15,11 @@ class AppsController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:user_id])
     @app = App.find(params[:id])
     authorize @app
+    @user = User.find(params[:user_id])
+    @events_hash_grouped_by_name = @app.events.group_by{|e| e.name}
+
   end
 
 
