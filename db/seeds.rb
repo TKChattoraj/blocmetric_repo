@@ -32,7 +32,7 @@ apps = App.all
 puts apps
 
 event_names = ["event1", "event2", "event3", "event4", "event5", "event6"]
-501.times do
+10001.times do
   event = Event.new(
     name: event_names.sample,
     app_id: apps.sample.id
