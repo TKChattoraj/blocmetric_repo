@@ -13,7 +13,7 @@
   </div>
 
   <div class='row'>
-    <div class='col-xs-4'>
+    <div class='col-xs-8'>
       <% unless @events_hash_grouped_by_name.empty? %>
         <% @events_hash_grouped_by_name.each_key do |e_name| %>
           <h4><%= "Event: #{e_name}. Count: #{@events_hash_grouped_by_name[e_name].count}" %>
