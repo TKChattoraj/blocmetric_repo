@@ -4,7 +4,8 @@ class App < ActiveRecord::Base
 
   validates :user, presence: true
 
-  URL_REGEX = /\A((https?:\/\/(www.)?)|(www.))([\w]+\.)+[a-zA-Z]{2,3}\z/i
+#  Note this URL_REGEX allows for localhost:4000"
+  URL_REGEX = /\A((https?:\/\/(www.)?)|(www.))((\w)+\.)+([a-zA-Z]{2,3})|(localhost:\d{4})\z/i
   validates :url,
             presence: true,
             uniqueness: {case_sensative: false},
