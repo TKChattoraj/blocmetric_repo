@@ -23,6 +23,23 @@ Things you may want to cover:
 
 * ...
 
+The Javascript snippet needed on the Client Side is as follows.  Put this snippet in app/assets/javascripts/application.js
+
+
+var blocmetrics = {};
+  blockmetrics.report = function(eventName){
+
+    var event = {event: {name: eventName}};
+
+    var request = new XMLHttpRequest();
+
+    request.open("POST", "http://localhost:3000/api/events", true);
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.send(JSON.stringify(event));
+
+  };
+
+** end of client side javascript snippet
 
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
