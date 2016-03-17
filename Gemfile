@@ -6,7 +6,10 @@ gem 'rails', '4.2.5'
 
 # Devise
 gem 'devise'
+# Pundit
 gem 'pundit'
+# Chartkick
+gem "chartkick"
 
 group :production do
   gem 'pg'

@@ -18,7 +18,9 @@
         <% @events_hash_grouped_by_name.each_key do |e_name| %>
           <h4><%= "Event: #{e_name}. Count: #{@events_hash_grouped_by_name[e_name].count}" %>
           </h4>
+
         <% end %>
+        <%= pie_chart @app.events.group(:name).count %>
       <% else %>
         <h4>No Events Yet</h4>
       <% end %>
