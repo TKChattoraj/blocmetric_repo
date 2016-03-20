@@ -24,7 +24,7 @@ users = User.all
   app = App.create!(
     name:  Faker::App.name,
     #url: "http://#{Faker::Internet.domain_word}.#{Faker::Internet.domain_suffix}",
-    url:  "http://#{Faker::Internet.domain_word}.com",
+    url:  "http://#{Faker::Internet.domain_word}#{rand(1..1000).to_s}.com",
     user_id: users.sample.id
   )
 end

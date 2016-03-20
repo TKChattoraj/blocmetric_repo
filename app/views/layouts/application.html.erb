@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <!-- <metta name="viewport" content="width=device-width, initial-scale=1"> -->
   <title>Blocmetric</title>
-  <metta name="viewport" content="width=device-width, initial-scale=1">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag "https://www.google.com/jsapi", "chartkick" %>
+  <%#= javascript_include_tag "path/to/highcharts.js", "chartkick" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -47,6 +49,7 @@
     </div>
 
 
+      <%#= yield  :charts_js %>
       <%= yield %>
     </div>
 

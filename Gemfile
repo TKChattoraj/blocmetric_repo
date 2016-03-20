@@ -6,7 +6,11 @@ gem 'rails', '4.2.5'
 
 # Devise
 gem 'devise'
+# Pundit
 gem 'pundit'
+# Chartkick
+gem "chartkick"
+gem 'groupdate'
 
 group :production do
   gem 'pg'
@@ -14,6 +18,7 @@ group :production do
 end
 
 group :development do
+  gem 'pg'
   gem 'sqlite3'
   gem 'web-console', '~>2.0'
 end

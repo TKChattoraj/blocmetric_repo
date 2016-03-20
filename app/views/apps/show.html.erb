@@ -2,27 +2,33 @@
   <div class='row'>
     <div class='col-xs-4'>
       <h2><%= @app.name %></h2>
-
     </div>
-  </div>
-
-  <div class='row'>
     <div class='col-xs-4'>
       <h3><%= @app.url %></h3>
     </div>
   </div>
 
   <div class='row'>
-    <div class='col-xs-8'>
+  </div>
+
+  <div class='row'>
+
       <% unless @events_hash_grouped_by_name.empty? %>
-        <% @events_hash_grouped_by_name.each_key do |e_name| %>
-          <h4><%= "Event: #{e_name}. Count: #{@events_hash_grouped_by_name[e_name].count}" %>
-          </h4>
-        <% end %>
+        <div class='col-xs-4'>
+          <% @events_hash_grouped_by_name.each_key do |e_name| %>
+            <h4><%= "Event: #{e_name}. Count: #{@events_hash_grouped_by_name[e_name].count}" %>
+            </h4>
+
+          <% end %>
+        </div>
+        <div class='col-xs-8'>
+          <%= pie_chart @app.events.group(:name).count %>
+          <%= line_chart @app.events.group_by_second(:created_at).count %>
+        </div>
       <% else %>
         <h4>No Events Yet</h4>
       <% end %>
-    </div>
+
   </div>
 
   <div class='row'>
